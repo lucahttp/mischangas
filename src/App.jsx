@@ -8,7 +8,12 @@ function JobPost() {
     //divs.push(<div key={i}>{i}</div>);
     divs.push(
       <Link key={i} to="/offer">
-        {/* https://reactrouter.com/en/main/components/link */}
+        {/* https://reactrouter.com/en/main/components/link 
+        <div
+          className="card card-compact card-bordered bg-base-100 w-50 shadow-sm border-yellow-600"
+        >
+        */}
+        
         <div
           className="card card-compact card-bordered bg-base-100 w-50 shadow-sm border-yellow-600"
         >

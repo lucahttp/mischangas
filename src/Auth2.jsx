@@ -12,7 +12,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import { createContext, useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import './Auth2.css'
+//import './Auth2.css'
 export default function Auth2() {
     const [session, setSession] = useLocalStorage("session", null);
     //const [session, setSession] = useState(null)
