@@ -15,12 +15,13 @@ function JobPost() {
         */}
         
         <div
-          className="card card-compact card-bordered bg-base-100 w-50 shadow-sm border-yellow-600"
+          className="card card-compact card-bordered bg-base-100 w-50 shadow-sm border-gray-200"
         >
           <figure>
             <img
               src="https://brdpcvomwqyfbjsxakmj.supabase.co/storage/v1/object/public/test/jnq0xu9jing61.jpeg"
               alt="Shoes"
+              className='object-cover'
             />
           </figure>
           <div className="card-body">

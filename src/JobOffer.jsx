@@ -25,7 +25,7 @@ function PhotoGallery() {
     divs.push(
       <div className="carousel-item w-full h-50">
         {' '}
-        <img src={offerTest.photos[i].url} className="rounded-box" />
+        <img src={offerTest.photos[i].url} className="object-cover rounded-box" />
       </div>
     );
   }

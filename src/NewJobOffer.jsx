@@ -26,6 +26,52 @@ function NewJobOffer() {
 
       <div className="flex justify-left border-t px-4 py-4">
         <label className="form-control w-full max-w-xs">
+
+
+          <div className="carousel carousel-center  h-24 w-full">
+            <div className="carousel-item w-24">
+              <img className='object-cover' src="https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp" alt="Pizza" />
+            </div>
+            <div className="carousel-item skeleton h-24 w-24 items-center justify-center	">
+
+              <a className="btn btn-circle btn-ghost" href="#">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="rgba(0, 0, 0, 1)"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                className="inline-block h-5 w-5 stroke-current"
+              ><path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"></path></svg></a>
+            </div>
+
+            <div className="carousel-item">
+              <img
+                src="https://img.daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.webp"
+                alt="Pizza" />
+            </div>
+            <div className="carousel-item">
+              <img
+                src="https://img.daisyui.com/images/stock/photo-1572635148818-ef6fd45eb394.webp"
+                alt="Pizza" />
+            </div>
+            <div className="carousel-item">
+              <img
+                src="https://img.daisyui.com/images/stock/photo-1494253109108-2e30c049369b.webp"
+                alt="Pizza" />
+            </div>
+            <div className="carousel-item">
+              <img src="https://img.daisyui.com/images/stock/photo-1550258987-190a2d41a8ba.webp" alt="Pizza" />
+            </div>
+            <div className="carousel-item">
+              <img src="https://img.daisyui.com/images/stock/photo-1559181567-c3190ca9959b.webp" alt="Pizza" />
+            </div>
+            <div className="carousel-item">
+              <img
+                src="https://img.daisyui.com/images/stock/photo-1601004890684-d8cbf643f5f2.webp"
+                alt="Pizza" />
+            </div>
+          </div>
           <div className="hero bg-base-200 h-100 w-100">
             <div className="hero-content text-center">
               <div className="max-w-md">
@@ -39,7 +85,7 @@ function NewJobOffer() {
 
           <div className="label">
             <span className="label-text">Tipo de publicacion</span>
-            <span className="label-text-alt">Alt label</span>
+            <span className="label-text-alt"></span>
           </div>
           <select className="select select-bordered">
             <option disabled selected>
@@ -59,12 +105,7 @@ function NewJobOffer() {
             placeholder="Type here"
             className="input input-bordered w-full max-w-xs"
           />
-          {/*
-                                <div className="label">
-            <span className="label-text-alt">hacelo bien sencillo asi te encuentran mas facil!</span>
-          </div>
 
-             */}
           <br></br>
 
           <div className="label">
@@ -84,10 +125,7 @@ function NewJobOffer() {
 
           <div className="label">
             <span className="label-text">Descripcion de la publicacion</span>
-            {/**
-             *             <span className="label-text-alt">algo mas detallado</span>
 
-             */}
           </div>
           <textarea
             placeholder="Una descripcion mas en detalle"
