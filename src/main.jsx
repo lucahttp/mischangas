@@ -21,6 +21,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/account" element={<Profile/>} />
       </Routes>
     </Router>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
