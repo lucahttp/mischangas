@@ -9,9 +9,11 @@ import { Link } from 'react-router-dom';
 
 function Profile() {
   const [session, setSession] = useState(null)
+  const [user, setUser] = useState(null);
+
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(({ data: { session,user }, error  }) => {
       setSession(session)
     })
 
