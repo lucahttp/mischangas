@@ -21,11 +21,9 @@ select
 create policy "Users can insert their own profile." on profiles for insert
 with
   check (
-    (
-      select
-        auth.uid ()
-    ) = id
-  );
+    (select auth.uid()) = id 
+    and 
+    (select (auth.jwt()->>'is_anonymous')::boolean) is false);
 
 create policy "Users can update own profile." on profiles
 for update

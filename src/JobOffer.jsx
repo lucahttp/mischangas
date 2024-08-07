@@ -1,7 +1,18 @@
-import { useState } from 'react';
-import './App.css';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { supabase } from './supabaseClient'
 
+import './App.css';
+import { useParams, useLoaderData, useNavigation, Link } from "react-router-dom";
+function formatToARS(number, currencySymbol = '$') {
+  return number.toLocaleString('es-AR', {
+    style: 'currency',
+    currency: 'ARS',
+    //minimumFractionDigits: 2,
+    currencyDisplay: 'symbol',
+    currencySymbol
+  });
+}
+/*
 const offerTest = {
   title: 'Armado de mueble',
   price: 20000,
@@ -17,15 +28,17 @@ const offerTest = {
       url: 'https://brdpcvomwqyfbjsxakmj.supabase.co/storage/v1/object/public/test/jnq0xu9jing61.jpeg',
     },
   ],
-};
-function PhotoGallery() {
+};*/
+function PhotoGallery(photos) {
+  console.log("photos",photos.photos)
   let divs = [];
-  for (let i = 0; i < offerTest.photos.length; i++) {
+  for (let i = 0; i < photos.photos.length; i++) {
+    console.log("photo",photos.photos[i])
     //divs.push(<div key={i}>{i}</div>);
     divs.push(
-      <div className="carousel-item w-full h-50">
+      <div key={i} className="carousel-item w-full h-50">
         {' '}
-        <img src={offerTest.photos[i].url} className="object-cover rounded-box" />
+        <img src={photos.photos[i].offer_image_url} className="object-cover rounded-box" />
       </div>
     );
   }
@@ -39,7 +52,64 @@ function PhotoGallery() {
   );
 }
 
+// https://github.com/shaan-alam/react-router-loaders-example
+export const getOffer = async (offerId) => {
+  console.log(`obteniendo la publicacion con el id ${offerId}, por favor espere`)
+  //offerId = "1b112ddb-5e28-49be-8da4-48183ed14fae"
+  try {
+    const { data, error } = await supabase
+      .from('offers')
+      .select(`
+    id, 
+    offer_title,
+    offer_price,
+    offer_description,
+    offer_type,
+    updated_at,
+    offer_owner_id,
+    profiles(id,username),
+    offer_images ( id, offer_image_url )`)
+      .eq('id', offerId)
+      .single()
+    //const res = await fetch(api);
+    //profiles ( offer_owner_id ),
+        //profiles!inner(offer_owner_id),
+
+    console.log(data)
+    return data;
+  } catch (error) {
+    console.warn(error)
+    //setError(error);
+    return "error"
+  }
+};
+
+
+
 function JobOffer() {
+  const offer = useLoaderData();
+  const navigation = useNavigation();
+  
+  let { offerId } = useParams();
+  useEffect( () => {
+
+    /*
+  async function fetchData() {
+    // You can await here
+    const res = await getOffer(offerId);
+    return res
+  }
+  const offer = fetchData();
+*/
+    //const offer = await getOffer(offerId);
+    console.log(offer,offerId)
+
+    
+     }, [])
+
+     if (navigation.state === "loading") {
+      return <h1>Loading!</h1>;
+    }
   return (
     <div className="Offer">
       <div className="navbar bg-base-100">
@@ -61,14 +131,18 @@ function JobOffer() {
         </div>
       </div>
 
-      <PhotoGallery />
+      <PhotoGallery photos={offer.offer_images}/>
       <div className="flex justify-left border-t px-4 py-4">
-        <h2>{offerTest.title}</h2>
-        <h3>$20.000</h3>
+        <h2>{offer.offer_title}</h2>
+        <h3 className='text-primary'>{formatToARS(offer.offer_price)}</h3>
       </div>
       <br></br>
+      {/**
+       * 
       <p>tiempo de respuesta 6hs</p>
+       */}
       <p>Pilar,BA</p>
+      <p>{offer.offer_description}</p>
       {/**
       <div className="carousel carousel-center bg-neutral rounded-box max-w-md space-x-4 p-4">
         <div className="carousel-item">

@@ -7,7 +7,7 @@ function formatToARS(number, currencySymbol = '$') {
   return number.toLocaleString('es-AR', {
     style: 'currency',
     currency: 'ARS',
-    minimumFractionDigits: 2,
+    //minimumFractionDigits: 2,
     currencyDisplay: 'symbol',
     currencySymbol
   });
@@ -212,7 +212,7 @@ function App() {
         {isLoading ? <p>Hola</p> : <div className="grid grid-cols-2 md:grid-cols-6">
 
           {data.map((item, index) => (
-            <Link key={index} to="/offer">
+            <Link key={index} to={"/offer/"+item.id}>
 
               <div
                 className="card card-compact card-bordered bg-base-100 w-50 shadow-sm border-gray-200"

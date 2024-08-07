@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { supabase } from './supabaseClient'
 import Avatar from './Avatar'
+import WeatherApp from './buttons/ButtonGetLocation'
 
 export default function Account({ session }) {
   const [loading, setLoading] = useState(true)
@@ -102,7 +103,7 @@ export default function Account({ session }) {
           {loading ? 'Loading ...' : 'Update'}
         </button>
       </div>
-
+        <WeatherApp/>
       <div>
         <button className="button block" type="button" onClick={() => supabase.auth.signOut()}>
           Sign Out

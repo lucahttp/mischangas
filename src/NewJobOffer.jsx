@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import { supabase } from './supabaseClient'
 
 import './App.css';
-import { Link } from 'react-router-dom';
+import { useLoaderData, useNavigation, Link } from "react-router-dom";
+
 import ImageUploader from './ImageUploader'
 
 const links = ["https://img.daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.webp",
@@ -83,6 +84,8 @@ function NewJobOffer() {
   const [offerPrice, setOfferPrice] = useState(null)
   const [offerDescription, setOfferDescription] = useState(null)
   const [images, setImages] = useState([]);
+  const result = useLoaderData();
+  const navigation = useNavigation();
   // https://react.dev/learn/updating-arrays-in-state
 
 
@@ -184,7 +187,7 @@ function NewJobOffer() {
 
       //id: 123,
       offer_title: offerTitle,
-      //offer_type: offerType,
+      offer_type: offerType,
       offer_price: offerPrice,
       offer_description: offerDescription,
       offer_owner_id: user.id,
@@ -217,6 +220,9 @@ function NewJobOffer() {
     setLoading(false)
   }
 
+  if (navigation.state === "loading") {
+    return <h1>Loading!</h1>;
+  }
   return (
     <div className="Offer">
       <div className="navbar bg-base-100">

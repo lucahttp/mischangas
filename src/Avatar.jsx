@@ -52,12 +52,17 @@ export default function Avatar({ url, size, onUpload }) {
   return (
     <div>
       {avatarUrl ? (
+        <div className="avatar offline">
+        <div className="w-24 rounded-full">
         <img
           src={avatarUrl}
           alt="Avatar"
           className="avatar image"
           style={{ height: size, width: size }}
-        />
+        />        </div>
+      </div>
+
+        
       ) : (
         <div className="avatar no-image" style={{ height: size, width: size }} />
       )}
