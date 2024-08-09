@@ -67,13 +67,46 @@ export default function Account({ session }) {
 
   return (
     <form onSubmit={updateProfile} className="form-widget">
-      <Avatar
+      <div className="bg-base-100 ">
+  <figure className="px-10 pt-10">
+
+  <Avatar
+  className="rounded-xl"
         url={avatar_url}
         size={150}
         onUpload={(event, url) => {
           updateProfile(event, url)
         }}
       />
+      
+  </figure>
+  <div className="card-body items-center text-center">
+    <h2 className="card-title">
+      <input type="text" className="input input-bordered w-full max-w-xs" value="Jane Doe" />
+    </h2>
+
+    <div className="form-control">
+      <label className="label" htmlFor="email">
+        <span className="label-text">Email</span>
+      </label> 
+      <input className="text" id="email" type="text" value={session.user.email} disabled />
+
+    </div>
+      
+
+    <div className="form-control">
+      <label className="label">
+        <span className="label-text">Bio</span>
+      </label> 
+      <textarea className="textarea textarea-bordered h-24" placeholder="Write your bio here"></textarea>
+    </div>
+    <div className="card-actions">
+      <button className="btn btn-primary">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+      
       <div>
         <label htmlFor="email">Email</label>
         <input id="email" type="text" value={session.user.email} disabled />

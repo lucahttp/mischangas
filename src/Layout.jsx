@@ -6,7 +6,7 @@ function Layout() {
   const { user } = useAuth();
 
   return (
-    <div>
+    <div style={{ maxWidth: 400 , margin: '0 auto'}}>
       {/* Your app-wide header or footer */}
       <Outlet />
     </div>

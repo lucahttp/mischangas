@@ -205,17 +205,22 @@ function App() {
           </li>
         </ul>
       </div>
+      <br />
       <div>
 
 
-
-        {isLoading ? <p>Hola</p> : <div className="grid grid-cols-2 md:grid-cols-6">
+{/**
+ * removing
+ *  md:grid-cols-6
+ * for a future desktop version
+ */}
+        {isLoading ? <p>Carganding</p> : <div className="grid grid-cols-2">
 
           {data.map((item, index) => (
-            <Link key={index} to={"/offer/"+item.id}>
+            <Link key={index} className='w-50 h-50' to={"/offer/"+item.id}>
 
               <div
-                className="card card-compact card-bordered bg-base-100 w-50 shadow-sm border-gray-200"
+                className="card card-compact w-50 h-48 card-bordered bg-base-100  shadow-sm border-gray-200"
               >
                 <figure>
                   {item.offer_images[0] ?
@@ -231,11 +236,11 @@ function App() {
 
                 </figure>
                 <div className="card-body">
-                  <div className="join">
+                  <div className="join w-full">
                     {/**
              * https://daisyui.com/components/join/
              */}
-                    <h2>{item.offer_title}</h2>
+                    <p className='truncate'>{item.offer_title}</p>
                     <p> </p>
                     <p className='text-primary'>{formatToARS(item.offer_price)}</p>
                   </div>
@@ -243,53 +248,6 @@ function App() {
               </div>
             </Link>
           ))}</div>}
-
-
-        {/**
-         * className="grid grid-cols-2 md:grid-cols-6">
-         *  className="grid grid-cols-1 md:grid-cols-6">
-         * grid grid-cols-2 gap-2">
-         * 
-         *         <div className="card card-compact bg-base-100 w-96 shadow-sm">
-
-         */}
-        {/**
-          * <div className="card card-bordered w-50 bg-base-100 border-yellow-600">
-          <figure>
-            <img
-              src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-              alt="Shoes"
-            />
-          </figure>
-          <div className="card-body">
-            <h2 className="card-title">Shoes!</h2>
-            <p>If a dog chews shoes whose shoes does he choose?</p>
-            <div className="card-actions justify-end">
-              <button className="btn btn-primary">Buy Now</button>
-            </div>
-          </div>
-        </div>
-        <div className="card card-compact card-bordered bg-base-100 w-50 shadow-sm border-yellow-600">
-          <figure>
-            <img
-              src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-              alt="Shoes"
-            />
-          </figure>
-          <div className="card-body">
-            <h2>Armado placard!</h2>
-
-          </div>
-        
-          */}
-        {/**
-             *             <p>If a dog chews shoes whose shoes does he choose?</p>
-
-            <div className="card-actions justify-end">
-              <button className="btn btn-primary">Buy Now</button>
-            </div>
-        </div>
-             */}
       </div>
     </div>
   );
