@@ -50,38 +50,40 @@ export default function Avatar({ url, size, onUpload }) {
   }
 
   return (
-    <div>
-      {avatarUrl ? (
-        <div className="avatar offline">
-        <div className="w-24 rounded-full">
-        <img
-          src={avatarUrl}
-          alt="Avatar"
-          className="avatar image"
-          style={{ height: size, width: size }}
-        />        </div>
-      </div>
+    <>
+  
 
-        
-      ) : (
-        <div className="avatar no-image" style={{ height: size, width: size }} />
-      )}
-      <div style={{ width: size }}>
-        <label className="button primary block" htmlFor="single">
-          {uploading ? 'Uploading ...' : 'Upload'}
-        </label>
+
+
+      <div className="join-item avatar indicator">
+        <label className="button primary block indicator-item badge badge-secondary" htmlFor="single1">{uploading ? 'Uploading ...' : 'Change'}</label>
+
         <input
           style={{
             visibility: 'hidden',
             position: 'absolute',
           }}
           type="file"
-          id="single"
+          id="single1"
           accept="image/*"
           onChange={uploadAvatar}
           disabled={uploading}
         />
+
+{avatarUrl ? (
+          <div className="h-20 w-20 rounded-lg">
+          <img
+            alt="Tailwind CSS examples"
+            src={avatarUrl} />
+        </div>
+
+
+        ) : (
+          <div className="skeleton h-20 w-20 rounded-lg"></div>
+        )}
+        
       </div>
-    </div>
+    </>
+
   )
 }

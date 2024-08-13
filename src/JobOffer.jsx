@@ -132,9 +132,9 @@ function JobOffer() {
       </div>
 
       <PhotoGallery photos={offer.offer_images}/>
-      <div className="flex justify-left border-t px-4 py-4">
+      <div className="flex justify-left px-4 py-4">
         <h2>{offer.offer_title}</h2>
-        <h3 className='text-primary'>{formatToARS(offer.offer_price)}</h3>
+        <p className='text-primary'>{formatToARS(offer.offer_price)}</p>
       </div>
       <br></br>
       {/**
