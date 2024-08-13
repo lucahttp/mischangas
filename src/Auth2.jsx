@@ -33,6 +33,8 @@ export default function Auth2() {
 
       return () => subscription.unsubscribe()
     }, [])
-
-    return (<Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />)
+    // , 'facebook', 'apple', 'spotify'
+      // https://github.com/supabase-community/auth-ui/blob/main/examples/react/src/App.tsx
+    return (<Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} 
+      providers={['google']}/>)
   }
