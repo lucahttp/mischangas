@@ -35,6 +35,16 @@ export default function Auth2() {
     }, [])
     // , 'facebook', 'apple', 'spotify'
       // https://github.com/supabase-community/auth-ui/blob/main/examples/react/src/App.tsx
-    return (<Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} 
-      providers={['google']}/>)
+    return (<Auth 
+      supabaseClient={supabase} 
+      appearance={{ theme: ThemeSupa }} 
+      providers={['google']}
+
+      />)
+
+            {/*
+      options={{
+        redirectTo: "https://brdpcvomwqyfbjsxakmj.supabase.co/auth/v1/callback",
+      }}
+    */}
   }

@@ -18,17 +18,16 @@ https://blog.logrocket.com/authentication-react-router-v6/
     improve ui and view (also add data like location and username of the owner)
         new offr redirects to offer after publish
     if you are not logged in popup to lofing preventing (new offers)
-
+    (save draft)
 
 
  - renaper or something to validate the identity
-gemini metadata and recommended offers
-match search and offer
-callifications system
-achedule system (cal.com)
+ - gemini metadata and recommended offers
+- add a match search and offer (bumble match approach)
+- callifications system
+- schedule system (cal.com)
 
 
-bumble match approach
 
 
 
