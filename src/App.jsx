@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import { Link } from 'react-router-dom';
 import { supabase } from './supabaseClient'
+import Imagen from './reciclables/Imagen'
 import { data } from 'autoprefixer';
 function formatToARS(number, currencySymbol = '$') {
   return number.toLocaleString('es-AR', {
@@ -223,7 +224,16 @@ function App() {
                 className="card card-compact w-50 h-48 card-bordered bg-base-100  shadow-sm border-gray-200"
               >
                 <figure>
-                  {item.offer_images[0] ?
+
+                <Imagen
+                    className='object-cover'
+                    //width={300}
+                    //height={300}
+                    lowResSrc={"https://via.placeholder.com/150"}
+                    highResSrc={item.offer_images[0].offer_image_url}
+                    />
+
+                  {/*item.offer_images[0] ?
 
                     <img
                       src={item.offer_images[0].offer_image_url}
@@ -232,7 +242,7 @@ function App() {
                     />
                     :
                     <div className="skeleton h-32 w-full"></div>
-                  }
+          */}
 
                 </figure>
                 <div className="card-body p-0.5	">

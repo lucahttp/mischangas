@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { supabase } from './supabaseClient'
+import Imagen from './reciclables/Imagen'
 
 import './App.css';
 import { useParams, useLoaderData, useNavigation, Link } from "react-router-dom";
@@ -12,6 +13,38 @@ function formatToARS(number, currencySymbol = '$') {
     currencySymbol
   });
 }
+
+const goTo = (event) => {
+  event.preventDefault()
+  const btn = event.currentTarget;
+
+  //Equivalent
+  //const carousel = document.querySelector('.carousel')
+  // const carousel = btn.parentElement!.parentElement!.parentElement!
+  const carousel = document.querySelector('#imageCarousel')
+
+  const href = btn.getAttribute('href')
+  const target = carousel.querySelector(href)
+  const left = target.offsetLeft
+  carousel.scrollTo({ left: left })
+}
+/*
+function getPreviousIndex(index, array) {
+  if (index - 1 < 0) {
+    return array.length - 1;
+  } else {
+    return index - 1;
+  }
+}
+
+function getNextIndex(index, array) {
+  if (index + 1 >= array.length) {
+    return 0;
+  } else {
+    return index + 1;
+  }
+};
+*/
 /*
 const offerTest = {
   title: 'Armado de mueble',
@@ -28,7 +61,7 @@ const offerTest = {
       url: 'https://brdpcvomwqyfbjsxakmj.supabase.co/storage/v1/object/public/test/jnq0xu9jing61.jpeg',
     },
   ],
-};*/
+};
 const goTo = (event) => {
   event.preventDefault()
   const btn = event.currentTarget;
@@ -43,87 +76,7 @@ const goTo = (event) => {
   const left = target.offsetLeft
   carousel.scrollTo({ left: left })
 }
-
-
-function Carousel(photos) {
-  const images = photos.photos;
-
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  useEffect(() => {
-    // Generate carousel slides and indicators dynamically
-    const sliderContainer = document.getElementById('slider');
-    const indicatorsContainer = document.querySelector('.carousel-indicators');
-    const thumbsContainer = document.querySelector('.carousel-thumbs');
-
-    sliderContainer.innerHTML = '';
-    indicatorsContainer.innerHTML = '';
-    thumbsContainer.innerHTML = '';
-
-    images.forEach((image, index) => {
-      const slideItem = document.createElement('div');
-      slideItem.className = 'carousel-item';
-      slideItem.style.backgroundImage = `${image}`;
-
-      const indicatorButton = document.createElement('button');
-      indicatorButton.className = `carousel-indicator ${index === currentSlide ? 'active' : ''}`;
-      indicatorButton.setAttribute('data-index', index);
-      indicatorButton.addEventListener('click', handleIndicatorClick);
-
-      const thumbButton = document.createElement('button');
-      thumbButton.className = `carousel-thumb ${index === currentSlide ? 'active' : ''}`;
-      thumbButton.setAttribute('data-index', index);
-      thumbButton.addEventListener('click', handleIndicatorClick);
-
-      sliderContainer.appendChild(slideItem);
-      indicatorsContainer.appendChild(indicatorButton);
-      thumbsContainer.appendChild(thumbButton);
-    });
-  }, [images, currentSlide]);
-
-  const handlePrevClick = () => {
-    setCurrentSlide((prevSlide) => (prevSlide - 1 + images.length) % images.length);
-  };
-
-  const handleNextClick = () => {
-    setCurrentSlide((prevSlide) => (prevSlide + 1) % images.length);
-  };
-
-  const handleIndicatorClick = (event) => {
-    const index = parseInt(event.target.getAttribute('data-index'));
-    setCurrentSlide(index);
-  };
-
-  return (
-    <div className="carousel w-full">
-      <div id="slider" className="carousel-slide">
-        {/* Carousel slides will be dynamically generated here */}
-      </div>
-      <div className="carousel-indicators">
-        {/* Carousel indicator buttons will be dynamically generated here */}
-      </div>
-      <div className="carousel-thumbs">
-        {/* Carousel thumb buttons will be dynamically generated here */}
-      </div>
-      <div className="flex justify-center">
-        <button className="btn btn-circle" onClick={handlePrevClick}>
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-              d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
-        <button className="btn   
- btn-circle" onClick={handleNextClick}>
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-              d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
-      </div>
-    </div>
-
-  );
-}
+*/
 
 
 
@@ -143,73 +96,6 @@ function getNextIndex(index, array) {
   }
 }
 
-function PhotoGallery(photos) {
-  console.log("photos", photos.photos)
-  let divs = [];
-  for (let i = 0; i < photos.photos.length; i++) {
-    //console.log("photo",photos.photos[i])
-    //divs.push(<div key={i}>{i}</div>);
-    divs.push(
-      <div key={"fotito" + i} id={"fotito" + i} className="carousel-item w-full h-50">
-        {' '}
-        <img src={photos.photos[i].offer_image_url} className="object-cover rounded-box" />
-        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-          <a href={"#fotito" + (i - 1)} className="btn btn-circle">❮</a>
-          <a href={"#fotito" + (i + 1)} className="btn btn-circle">❯</a>
-        </div>
-      </div>
-    );
-  }
-  return (
-    /*
-    <div className="carousel rounded-box w-64">
-    */
-    <div className="carousel carousel-center bg-neutral rounded-box max-w-md space-x-4 p-4">
-      {divs}
-    </div>
-  );
-
-  /**
-<div className="carousel w-full">
-  <div id="slide1" className="carousel-item relative w-full">
-    <img
-      src="https://img.daisyui.com/images/stock/photo-1625726411847-8cbb60cc71e6.webp"
-      className="w-full" />
-    <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-      <a href="#slide4" className="btn btn-circle">❮</a>
-      <a href="#slide2" className="btn btn-circle">❯</a>
-    </div>
-  </div>
-  <div id="slide2" className="carousel-item relative w-full">
-    <img
-      src="https://img.daisyui.com/images/stock/photo-1609621838510-5ad474b7d25d.webp"
-      className="w-full" />
-    <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-      <a href="#slide1" className="btn btn-circle">❮</a>
-      <a href="#slide3" className="btn btn-circle">❯</a>
-    </div>
-  </div>
-  <div id="slide3" className="carousel-item relative w-full">
-    <img
-      src="https://img.daisyui.com/images/stock/photo-1414694762283-acccc27bca85.webp"
-      className="w-full" />
-    <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-      <a href="#slide2" className="btn btn-circle">❮</a>
-      <a href="#slide4" className="btn btn-circle">❯</a>
-    </div>
-  </div>
-  <div id="slide4" className="carousel-item relative w-full">
-    <img
-      src="https://img.daisyui.com/images/stock/photo-1665553365602-b2fb8e5d1707.webp"
-      className="w-full" />
-    <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-      <a href="#slide3" className="btn btn-circle">❮</a>
-      <a href="#slide1" className="btn btn-circle">❯</a>
-    </div>
-  </div>
-</div>
-   */
-}
 
 // https://github.com/shaan-alam/react-router-loaders-example
 export const getOffer = async (offerId) => {
@@ -252,6 +138,8 @@ function JobOffer() {
   let { offerId } = useParams();
   useEffect(() => {
 
+
+    console.log(offer, offerId)
     /*
   async function fetchData() {
     // You can await here
@@ -300,9 +188,19 @@ function JobOffer() {
 
         {offer.offer_images.map((item, index) => (
           <div key={index} id={"slide" + index} className="carousel-item relative w-full">
+            
+            <Imagen
+            className="w-full"
+        //width={'100%'}
+        //height={'100%'}
+        lowResSrc={"https://via.placeholder.com/150"}
+        highResSrc={item.offer_image_url}
+      />
+{/*
             <img
               src={item.offer_image_url}
               className="w-full" />
+ */}
             <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
               <a onClick={goTo} href={"#slide" + getPreviousIndex(index, offer.offer_images)} className="btn btn-circle">❮</a>
               <a onClick={goTo} href={"#slide" + getNextIndex(index, offer.offer_images)} className="btn btn-circle">❯</a>
@@ -317,17 +215,7 @@ function JobOffer() {
         </div>
       </>}
 
-
-
-      {/*
-      <PhotoGallery photos={offer.offer_images} />
- */}
-
-
-
-
-
-      <div class="grid gap-x-8 pl-2 pr-2 gap-y-4 grid-cols-1">
+      <div className="grid gap-x-8 pl-2 pr-2 gap-y-4 grid-cols-1">
 
         <div className="flex justify-between px-4 py-4">
           <h2>{offer.offer_title}</h2>
@@ -343,7 +231,7 @@ function JobOffer() {
 
           <div className="join py-8 px-4">
 
-            <button onClick={() => document.getElementById('my_modal_2').showModal()} class="btn btn-primary join-item">Me interesa</button>
+            <button onClick={() => document.getElementById('my_modal_2').showModal()} className="btn btn-primary join-item">Me interesa</button>
             {/* Open the modal using document.getElementById('ID').showModal() method
 <button className="btn" onClick={()=>document.getElementById('my_modal_2').showModal()}>open modal</button>
  */}
@@ -368,8 +256,8 @@ function JobOffer() {
             <div className="dropdown dropdown-end">
               {/* Suggested code may be subject to a license. Learn more: ~LicenseLog:1311696644. */}
               <div tabIndex={0} role="button" className="btn btn-primary join-item">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                     d="M19 9l-7 7-7-7" />
                 </svg>
               </div>
