@@ -24,10 +24,11 @@ https://blog.logrocket.com/authentication-react-router-v6/
  - renaper or something to validate the identity
  - gemini metadata and recommended offers
 - add a match search and offer (bumble match approach)
-- callifications system
-- schedule system (cal.com)
+- callifications system (Feature)
+- schedule system (cal.com) (Feature)
 
-
+- clean metadata photos (Security)
+- anon vs authenticad users RLS setup (Security)
 
 
 

@@ -214,7 +214,7 @@ function App() {
  *  md:grid-cols-6
  * for a future desktop version
  */}
-        {isLoading ? <p>Carganding</p> : <div className="grid grid-cols-2">
+        {isLoading ? <p>Carganding</p> : <div className="grid grid-cols-2 gap-1">
 
           {data.map((item, index) => (
             <Link key={index} className='w-50 h-50' to={"/offer/"+item.id}>
@@ -235,8 +235,8 @@ function App() {
                   }
 
                 </figure>
-                <div className="card-body">
-                  <div className="join w-full">
+                <div className="card-body p-0.5	">
+                  <div className="join w-full flex justify-between">
                     {/**
              * https://daisyui.com/components/join/
              */}
