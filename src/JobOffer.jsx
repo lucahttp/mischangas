@@ -4,6 +4,13 @@ import Imagen from './reciclables/Imagen'
 
 import './App.css';
 import { useParams, useLoaderData, useNavigation, Link } from "react-router-dom";
+
+
+ 
+const carrouselSelectedClasses = {
+  unselected: "btn btn-xs",
+  selected: "btn btn-primary btn-xs"
+};
 function formatToARS(number, currencySymbol = '$') {
   return number.toLocaleString('es-AR', {
     style: 'currency',
@@ -14,69 +21,6 @@ function formatToARS(number, currencySymbol = '$') {
   });
 }
 
-const goTo = (event) => {
-  event.preventDefault()
-  const btn = event.currentTarget;
-
-  //Equivalent
-  //const carousel = document.querySelector('.carousel')
-  // const carousel = btn.parentElement!.parentElement!.parentElement!
-  const carousel = document.querySelector('#imageCarousel')
-
-  const href = btn.getAttribute('href')
-  const target = carousel.querySelector(href)
-  const left = target.offsetLeft
-  carousel.scrollTo({ left: left })
-}
-/*
-function getPreviousIndex(index, array) {
-  if (index - 1 < 0) {
-    return array.length - 1;
-  } else {
-    return index - 1;
-  }
-}
-
-function getNextIndex(index, array) {
-  if (index + 1 >= array.length) {
-    return 0;
-  } else {
-    return index + 1;
-  }
-};
-*/
-/*
-const offerTest = {
-  title: 'Armado de mueble',
-  price: 20000,
-  price_measure: 'Total',
-  photos: [
-    {
-      url: 'https://brdpcvomwqyfbjsxakmj.supabase.co/storage/v1/object/public/test/hq720.jpg',
-    },
-    {
-      url: 'https://brdpcvomwqyfbjsxakmj.supabase.co/storage/v1/object/public/test/puesto_platinum.jpg',
-    },
-    {
-      url: 'https://brdpcvomwqyfbjsxakmj.supabase.co/storage/v1/object/public/test/jnq0xu9jing61.jpeg',
-    },
-  ],
-};
-const goTo = (event) => {
-  event.preventDefault()
-  const btn = event.currentTarget;
-
-  //Equivalent
-  //const carousel = document.querySelector('.carousel')
-  // const carousel = btn.parentElement!.parentElement!.parentElement!
-  const carousel = document.querySelector('#imageCarousel')
-
-  const href = btn.getAttribute('href')
-  const target = carousel.querySelector(href)
-  const left = target.offsetLeft
-  carousel.scrollTo({ left: left })
-}
-*/
 
 
 
@@ -134,6 +78,31 @@ export const getOffer = async (offerId) => {
 function JobOffer() {
   const offer = useLoaderData();
   const navigation = useNavigation();
+  const [selectedCarrouselIndex, setSelectedCarrouselIndex] = useState(0)
+  const [avatarUrl, setAvatarUrl] = useState(null)
+
+
+
+  const goTo = (event) => {
+    event.preventDefault()
+    const btn = event.currentTarget;
+  
+    //Equivalent
+    //const carousel = document.querySelector('.carousel')
+    // const carousel = btn.parentElement!.parentElement!.parentElement!
+    const carousel = document.querySelector('#imageCarousel')
+  
+    const href = btn.getAttribute('href')
+    const target = carousel.querySelector(href)
+    const left = target.offsetLeft
+    carousel.scrollTo({ left: left })
+
+    // remove "#slice" from href
+    const id = href.replace("#slide", "")
+    //const id = href.remove("#slice")
+    console.log(id)
+    setSelectedCarrouselIndex(id)
+  }
 
   let { offerId } = useParams();
   useEffect(() => {
@@ -210,7 +179,7 @@ function JobOffer() {
         ))}</div>
         <div className="flex w-full justify-center gap-2 py-2">
           {offer.offer_images.map((item, index) => (
-            <a key={index} onClick={goTo} href={"#slide" + index} className="btn btn-xs">{index}</a>
+            <a key={index} onClick={goTo} href={"#slide" + index} className={index == selectedCarrouselIndex ? carrouselSelectedClasses.selected : carrouselSelectedClasses.unselected}>{index}</a>
           ))}
         </div>
       </>}

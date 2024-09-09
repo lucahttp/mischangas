@@ -1,76 +1,12 @@
 import { useEffect, useState } from 'react'
 import { supabase } from './supabaseClient'
 
-import './App.css';
+//import './App.css';
 import { useLoaderData, useNavigation, Link } from "react-router-dom";
 
 import ImageUploader from './ImageUploader'
 
-const links = ["https://img.daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.webp",
-  "https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp",
-  "https://img.daisyui.com/images/stock/photo-1572635148818-ef6fd45eb394.webp"
 
-]
-/*
-<div className="carousel-item skeleton h-24 w-24 items-center justify-center	">
-<a className="btn btn-circle btn-ghost" href="#">
-<svg
-  xmlns="http://www.w3.org/2000/svg"
-  fill="rgba(0, 0, 0, 1)"
-  width="24"
-  height="24"
-  viewBox="0 0 24 24"
-  className="inline-block h-5 w-5 stroke-current"
-><path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"></path></svg></a>
-</div>
-
-
-key={session.user.id} session={session}
-
-*/
-
-function PostImages(imageList) {
-  let divs = [];
-  for (let i = 0; i < imageList.lenght; i++) {
-    //divs.push(<div key={i}>{i}</div>);
-    divs.push(
-      <>
-        <div key={i} className="carousel-item object-cover w-24 h-24">
-          <img
-            src="https://img.daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.webp"
-            alt="Pizza"
-            className="" />
-        </div>
-        <ImageUploader
-          url={imageList[i]}
-          size={150}
-          onUpload={(event, url) => {
-            console.log(event, url)
-
-            imageList.push(url);
-            //updateProfile(event, url)
-          }}
-        />
-      </>
-    );
-  }
-
-  divs.push(
-    <div className="carousel-item skeleton h-24 w-24 items-center justify-center	">
-      <a className="btn btn-circle btn-ghost" href="#">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="rgba(0, 0, 0, 1)"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          className="inline-block h-5 w-5 stroke-current"
-        ><path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"></path></svg></a>
-    </div>
-  );
-
-  return <div className="carousel carousel-center h-24 w-full ">{divs}</div>;
-}
 
 
 function NewJobOffer() {
@@ -142,7 +78,7 @@ function NewJobOffer() {
     }
   }
 
-  async function insertOfferImage(offer_id, avatarUrl,position) {
+  async function insertOfferImage(offer_id, avatarUrl, position) {
 
     setLoading(true)
     const { user } = session
@@ -247,15 +183,16 @@ function NewJobOffer() {
 
       <div className="flex justify-left border-t px-4 py-4">
         <label className="form-control w-full max-w-xs">
+        <br></br>
 
-          {images.length < 1 ? <div className="hero bg-base-200 h-100 w-100">
+          {/*<div className="hero bg-base-200 h-100 w-100">
             <div className="hero-content text-center">
               <div className="max-w-md">
                 <p className="py-6">
                   Upload a photo! the first one will be the portada of your post
                 </p>
 
-                <label htmlFor="single" className="btn btn-primary">
+                <label htmlFor="single2" className="btn btn-primary">
                   Click here to Upload
                 </label>
 
@@ -266,33 +203,72 @@ function NewJobOffer() {
                     position: 'absolute',
                   }}
                   type="file"
-                  id="single"
+                  id="single2"
                   accept="image/*"
                   onChange={uploadAvatar}
                   disabled={uploading}
                 />
               </div>
             </div>
-          </div>
-            : <div className="carousel carousel-center  h-24 w-full">
+                </div>*/}
+
+          {images.length < 1 ?
+
+            <div className="flex items-center justify-center w-full">
+              <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                  <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                  </svg>
+                  <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                </div>
+                <input id="dropzone-file" type="file" className="hidden"
+                  accept="image/*"
+                  onChange={uploadAvatar}
+                  disabled={uploading} />
+              </label>
+            </div>
+            : <div className="carousel carousel-center pt-3 h-36 gap-4 w-full">
 
               {images.map((item, index) => (
                 <>
-                  <div key={index} className="carousel-item w-24">
-                    <img className='object-cover' src={item} alt="Pizza" />
-                  </div>
 
+                  <div key={index} id={`newImage${index}`} className=" carousel-item w-24 avatar indicator">
+                    <span className=" z-100 indicator-item badge badge-secondary cursor-pointer" onClick={(event) => {
+                      event.preventDefault()
+                      
+                      setImages(images=> images.filter((s,i)=>(i != index)))
+                      console.log(images);
+                    }}>X</span>
+                    <div className="h-24 w-24 rounded-lg">
+                      <img className='cursor-pointer' src={item} alt="Pizza" />
+                    </div>
+                  </div>
 
                 </>
               ))}
-              {/**
-               * 
-              <div className="carousel-item w-24">
-                <img className='object-cover' src="https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp" alt="Pizza" />
-              </div>
-               */}
 
-              <div className="carousel-item skeleton h-24 w-24 items-center justify-center	">
+
+              {/*
+                           <div className="flex items-center justify-center w-full">
+              <label for="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                  <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                  </svg>
+                  <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                </div>
+                <input id="dropzone-file" type="file" className="hidden"
+                  accept="image/*"
+                  onChange={uploadAvatar}
+                  disabled={uploading} />
+              </label>
+            </div>
+
+
+                          <div className="carousel-item skeleton h-24 w-24 items-center justify-center	">
 
 
                 <input
@@ -301,13 +277,13 @@ function NewJobOffer() {
                     position: 'absolute',
                   }}
                   type="file"
-                  id="single"
+                  id="single1"
                   accept="image/*"
                   onChange={uploadAvatar}
                   disabled={uploading}
                 />
 
-                <label htmlFor="single" className="btn btn-circle btn-ghost" href="#">
+                <label htmlFor="single1" className="btn btn-circle btn-ghost" href="#">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="rgba(0, 0, 0, 1)"
@@ -317,62 +293,25 @@ function NewJobOffer() {
                     className="inline-block h-5 w-5 stroke-current"
                   ><path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"></path></svg></label>
               </div>
-
-              {/**
-             * 
-            <div className="carousel-item">
-              <img
-                src="https://img.daisyui.com/images/stock/photo-1494253109108-2e30c049369b.webp"
-                alt="Pizza" />
-            </div>
-             */}
+               */}
+              <div className="carousel-item h-24 w-24 flex items-center justify-center">
+                <label htmlFor="dropzone-file1" className="flex flex-col items-center justify-center h-24 w-24 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                  <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                    <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                      <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                    </svg>
+                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Subi una mas</span></p>
+                  </div>
+                  <input id="dropzone-file1" type="file" className="hidden"
+                    accept="image/*"
+                    onChange={uploadAvatar}
+                    disabled={uploading} />
+                </label>
+              </div>
             </div>}
 
-
-
-
-          {/*for (let i = 0; i < imageList.lenght; i++) {
-    //divs.push(<div key={i}>{i}</div>);
-    divs.push(
-      <>
-      <div key={i} className="carousel-item object-cover w-24 h-24">
-        <img
-          src="https://img.daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.webp"
-          alt="Pizza"
-          className="" />
-      </div>
-      <ImageUploader 
-        url={imageList[i]}
-        size={150}
-        onUpload={(event, url) => {
-          console.log(event, url)
-
-          imageList.push(url);
-          //updateProfile(event, url)
-        }}
-        />
-      </>
-    );}*/}
-
-          {/**
-             * <div key={index}>{item}</div>
-            <div key={index} className="carousel-item object-cover w-24 h-24">
-              <img
-                src="https://img.daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.webp"
-                alt="Pizza"
-                className="" />
-            </div>
-            <ImageUploader
-              url={item}
-              size={150}
-              onUpload={(event, url) => {
-                console.log(event, url)
-
-                images.push(url);
-                //updateProfile(event, url)
-              }}
-            />
-             */}
+          <br></br>
+          <br></br>
 
           <div className="label">
             <span className="label-text">Tipo de publicacion</span>
@@ -380,7 +319,7 @@ function NewJobOffer() {
           </div>
           <select className="select select-bordered">
             <option disabled defaultValue>
-              Eleji la tuya
+              Elegi la tuya
             </option>
             <option>Quiero ofrecer...</option>
             <option>Estoy buscando...</option>
@@ -445,6 +384,9 @@ function NewJobOffer() {
       </div>
       <br></br>
       <button className='btn btn-primary' onClick={uploadOffer}>Publicar</button>
+
+      <br></br>
+      <br></br>
     </div>
   );
 }

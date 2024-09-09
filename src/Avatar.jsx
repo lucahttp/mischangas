@@ -73,7 +73,7 @@ export default function Avatar({ url, size, onUpload }) {
 {avatarUrl ? (
           <div className="h-20 w-20 rounded-lg">
           <img
-            alt="Tailwind CSS examples"
+            alt="Profile picture"
             src={avatarUrl} />
         </div>
 
