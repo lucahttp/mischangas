@@ -185,7 +185,10 @@ function NewJobOffer() {
         <label className="form-control w-full max-w-xs">
         <br></br>
 
-          {/*<div className="hero bg-base-200 h-100 w-100">
+          {/*
+           https://flowbite.com/docs/forms/file-input/
+           
+           <div className="hero bg-base-200 h-100 w-100">
             <div className="hero-content text-center">
               <div className="max-w-md">
                 <p className="py-6">
@@ -237,7 +240,7 @@ function NewJobOffer() {
                   <div key={index} id={`newImage${index}`} className=" carousel-item w-24 avatar indicator">
                     <span className=" z-100 indicator-item badge badge-secondary cursor-pointer" onClick={(event) => {
                       event.preventDefault()
-                      
+                      //https://stackoverflow.com/questions/73247349/remove-element-from-usestate-array-by-index
                       setImages(images=> images.filter((s,i)=>(i != index)))
                       console.log(images);
                     }}>X</span>
