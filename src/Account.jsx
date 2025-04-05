@@ -251,7 +251,7 @@ className="rounded-xl"
 <div className='join  flex items-center gap-10'>
 <button className="btn btn-primary" type="submit" disabled={loading}>
 
-{loading ? 'Loading ...' : <><svg
+{loading ? 'Cargando ando...' : <><svg
   xmlns="http://www.w3.org/2000/svg"
   className="h-6 w-6"
   fill="none"

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { supabase } from './supabaseClient'
 import Imagen from './reciclables/Imagen'
+import { useAuthCheck } from './hooks/useAuthCheck';
 
 import './App.css';
 import { useParams, useLoaderData, useNavigation, Link } from "react-router-dom";
@@ -80,6 +81,7 @@ function JobOffer() {
   const navigation = useNavigation();
   const [selectedCarrouselIndex, setSelectedCarrouselIndex] = useState(0)
   const [avatarUrl, setAvatarUrl] = useState(null)
+  const checkAuth = useAuthCheck();
 
 
 
@@ -103,6 +105,26 @@ function JobOffer() {
     console.log(id)
     setSelectedCarrouselIndex(id)
   }
+
+  const handleInteresaClick = async () => {
+    if (await checkAuth()) {
+      document.getElementById('my_modal_2').showModal();
+    } else {
+      document.getElementById('login_required_modal').showModal();
+    }
+  };
+
+  const handleContraOferta = async () => {
+    if (await checkAuth()) {
+      document.getElementById('my_modal_3').showModal();
+    }
+  };
+
+  const handleConsultar = async () => {
+    if (await checkAuth()) {
+      document.getElementById('my_modal_4').showModal();
+    }
+  };
 
   let { offerId } = useParams();
   useEffect(() => {
@@ -162,7 +184,7 @@ function JobOffer() {
             className="w-full"
         //width={'100%'}
         //height={'100%'}
-        lowResSrc={"https://via.placeholder.com/150"}
+        lowResSrc={"https://placehold.co/150x150/png/000000/FFFFFF?text=Loading..."}
         highResSrc={item.offer_image_url}
       />
 {/*
@@ -186,8 +208,11 @@ function JobOffer() {
 
       <div className="grid gap-x-8 pl-2 pr-2 gap-y-4 grid-cols-1">
 
-        <div className="flex justify-between px-4 py-4">
-          <h2>{offer.offer_title}</h2>
+        {/**
+       *  px-4 
+       */}
+        <div className="flex justify-between py-4"> 
+          <h2 className="font-bold text-lg" >{offer.offer_title}</h2>
           <p className='text-primary'>{formatToARS(offer.offer_price)}</p>
         </div>
         {/**
@@ -200,7 +225,7 @@ function JobOffer() {
 
           <div className="join py-8 px-4">
 
-            <button onClick={() => document.getElementById('my_modal_2').showModal()} className="btn btn-primary join-item">Me interesa</button>
+            <button onClick={handleInteresaClick} className="btn btn-primary join-item">Me interesa</button>
             {/* Open the modal using document.getElementById('ID').showModal() method
 <button className="btn" onClick={()=>document.getElementById('my_modal_2').showModal()}>open modal</button>
  */}
@@ -222,6 +247,21 @@ function JobOffer() {
                 <button>Cerrar</button>
               </form>
             </dialog>
+            <dialog id="login_required_modal" className="modal">
+              <div className="modal-box">
+                <h3 className="font-bold text-lg">Iniciar sesión requerido</h3>
+                <p className="py-4">Para realizar esta acción necesitas iniciar sesión primero.</p>
+                <div className="modal-action">
+                  <form method="dialog" className="flex gap-2">
+                    <Link to="/account" className="btn btn-primary">Iniciar sesión</Link>
+                    <button className="btn">Cerrar</button>
+                  </form>
+                </div>
+              </div>
+              <form method="dialog" className="modal-backdrop">
+                <button>Cerrar</button>
+              </form>
+            </dialog>
             <div className="dropdown dropdown-end">
               {/* Suggested code may be subject to a license. Learn more: ~LicenseLog:1311696644. */}
               <div tabIndex={0} role="button" className="btn btn-primary join-item">
@@ -233,18 +273,19 @@ function JobOffer() {
               <ul
                 tabIndex={0}
                 className="menu dropdown-content bg-base-100 rounded-box z-[1] mt-4 w-52 p-2 shadow">
-                <li><a onClick={() => document.getElementById('my_modal_3').showModal()} >Contra oferta</a></li>
-
-                {/* Open the modal using document.getElementById('ID').showModal() method
+                <li><a onClick={handleContraOferta}>Contra oferta</a></li>
+                <li><a onClick={handleConsultar}>Consultar</a></li>
+              </ul>
+              {/* Open the modal using document.getElementById('ID').showModal() method
 <button className="btn" onClick={()=>document.getElementById('my_modal_2').showModal()}>open modal</button>
  */}
-                <dialog id="my_modal_3" className="modal">
-                  <div className="modal-box">
-                    <div className="grid grid-rows-1 grid-flow-col gap-1">
-                      <div className='col-span-2'>
+              <dialog id="my_modal_3" className="modal">
+                <div className="modal-box">
+                  <div className="grid grid-rows-1 grid-flow-col gap-1">
+                    <div className='col-span-2'>
 
-                        <h3 className="font-bold text-lg">Contra Ofrerta</h3>
-                        <input type="number" placeholder="Otro monto $$$" className="input w-full max-w-xs" />                  </div>
+                      <h3 className="font-bold text-lg">Contra Ofrerta</h3>
+                      <input type="number" placeholder="Otro monto $$$" className="input w-full max-w-xs" />                  </div>
 
 
                       <form method="dialog">
@@ -260,17 +301,12 @@ function JobOffer() {
                             className="inline-block h-5 w-5 stroke-current"
                           ><path d="m21.426 11.095-17-8A.999.999 0 0 0 3.03 4.242L4.969 12 3.03 19.758a.998.998 0 0 0 1.396 1.147l17-8a1 1 0 0 0 0-1.81zM5.481 18.197l.839-3.357L12 12 6.32 9.16l-.839-3.357L18.651 12l-13.17 6.197z"></path></svg>                      </button>
                       </form>
-                    </div>
                   </div>
-                  <form method="dialog" className="modal-backdrop">
-                    <button>Cerrar</button>
-                  </form>
-                </dialog>
-                <li><a onClick={() => document.getElementById('my_modal_4').showModal()}>Consultar</a></li>
-              </ul>
-              {/* Open the modal using document.getElementById('ID').showModal() method
-<button className="btn" onClick={()=>document.getElementById('my_modal_2').showModal()}>open modal</button>
- */}
+                </div>
+                <form method="dialog" className="modal-backdrop">
+                  <button>Cerrar</button>
+                </form>
+              </dialog>
               <dialog id="my_modal_4" className="modal">
                 <div className="modal-box">
                   <div className="grid grid-rows-1 grid-flow-col gap-1">
