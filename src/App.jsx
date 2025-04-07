@@ -4,6 +4,11 @@ import { Link } from 'react-router-dom';
 import { supabase } from './supabaseClient'
 import Imagen from './reciclables/Imagen'
 import { data } from 'autoprefixer';
+
+import JobOfferList from './JobOfferList.jsx';
+import SelectableMenu from './SelectableMenu.jsx';
+import ChatMain from './ChatMain.jsx';
+
 function formatToARS(number, currencySymbol = '$') {
   const formatted = number.toLocaleString('es-AR', {
     style: 'currency',
@@ -14,91 +19,28 @@ function formatToARS(number, currencySymbol = '$') {
   });
   return formatted.replace(/\s/g, ''); // Remove all spaces
 }
-function JobPostDummy() {
 
 
-  let divs = [];
-  for (let i = 0; i < 10; i++) {
-    //divs.push(<div key={i}>{i}</div>);
-    divs.push(
-      <Link key={i} to="/offer">
-        {/* https://reactrouter.com/en/main/components/link 
-        <div
-          className="card card-compact card-bordered bg-base-100 w-50 shadow-sm border-yellow-600"
-        >
-        */}
-
-        <div
-          className="card card-compact card-bordered bg-base-100 w-50 shadow-sm border-gray-200"
-        >
-          <figure>
-            <img
-              src="https://brdpcvomwqyfbjsxakmj.supabase.co/storage/v1/object/public/test/jnq0xu9jing61.jpeg"
-              alt="Shoes"
-              className='object-cover'
-            />
-          </figure>
-          <div className="card-body">
-            <h2>{i}Armado de placard</h2>
-            {/**
-             *             <p>If a dog chews shoes whose shoes does he choose?</p>
-
-            <div className="card-actions justify-end">
-              <button className="btn btn-primary">Buy Now</button>
-            </div>
-             */}
-          </div>
-        </div>
-      </Link>
-    );
-  }
-  return <div className="grid grid-cols-2 md:grid-cols-6">{divs}</div>;
-}
-function JobPost() {
-
-
-  let divs = [];
-  for (let i = 0; i < data.length; i++) {
-    //divs.push(<div key={i}>{i}</div>);
-    divs.push(
-      <Link key={i} to="/offer">
-        {/* https://reactrouter.com/en/main/components/link 
-        <div
-          className="card card-compact card-bordered bg-base-100 w-50 shadow-sm border-yellow-600"
-        >
-        */}
-
-        <div
-          className="card card-compact card-bordered bg-base-100 w-50 shadow-sm border-gray-200"
-        >
-          <figure>
-            <img
-              src="https://brdpcvomwqyfbjsxakmj.supabase.co/storage/v1/object/public/test/jnq0xu9jing61.jpeg"
-              alt="Shoes"
-              className='object-cover'
-            />
-          </figure>
-          <div className="card-body">
-            <h2>{i}Armado de placard</h2>
-            {/**
-             *             <p>If a dog chews shoes whose shoes does he choose?</p>
-
-            <div className="card-actions justify-end">
-              <button className="btn btn-primary">Buy Now</button>
-            </div>
-             */}
-          </div>
-        </div>
-      </Link>
-    );
-  }
-  return <div className="grid grid-cols-2 md:grid-cols-6">{divs}</div>;
-}
 function App() {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const [error, setError] = useState(null);
+
+ 
+  const [currentSelection, setCurrentSelection] = useState("paraVos");
+
+  const handleMenuItemSelected = (selectedItemName) => {
+/*     if (selectedItemName ===  'ofrecer') {
+      window.location.href = "/new";
+      return;      
+    } */
+    setCurrentSelection(selectedItemName);
+    console.log(`User selected: ${selectedItemName}`);
+    // Perform other actions based on the selection, e.g.,
+    // - Fetch data based on the selected category
+    // - Update other parts of the UI
+  };
 
 
 
@@ -120,16 +62,6 @@ function App() {
     }
   };
 
-  /*
-    async function getOffers() {
-      const { data, error } = await supabase.from('offers').select(`
-    id, 
-    offer_title,
-    offer_price,
-    offer_images ( id, offer_image_url )
-  `)
-  console.log(data)
-    }*/
   useEffect(() => {
     getOffers();
   }, []);
@@ -177,112 +109,14 @@ function App() {
           </button>
         </div>
       </div>
-      <div>
-        <ul className="menu menu-sm bg-base-200 rounded-box w-100 menu-horizontal">
-          <li>
-            <Link to="/new">
-              <p>
-                Ofrecer
-                {/**
-              <span className="badge badge-sm badge-success">$</span>
-               */}
-              </p>
-            </Link>
-          </li>
 
-          <li className="disabled">
-            <p>|</p>
-          </li>
-
-          <li>
-            <p className="active">
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="rgba(242, 242, 242, 1)"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                className="h-5 w-5 "
-              >
-              <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8 8a2 2 0 0 0 2.828 0l7.172-7.172a2 2 0 0 0 0-2.828l-8-8zM7 9a2 2 0 1 1 .001-4.001A2 2 0 0 1 7 9z"></path>
-              </svg>Para vos
-              {/**
-               *               <span className="badge badge-sm badge-warning">!</span>
-               */}
-            </p>
-          </li>
-          <li>
-            <Link to="/mensajes">
-              <p>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="rgba(0, 0, 0, 1)"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                className="inline-block h-5 w-5 "
-              >
-              <path d="M5 18v3.766l1.515-.909L11.277 18H16c1.103 0 2-.897 2-2V8c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v8c0 1.103.897 2 2 2h1zM4 8h12v8h-5.277L7 18.234V16H4V8z"></path>
-              <path d="M20 2H8c-1.103 0-2 .897-2 2h12c1.103 0 2 .897 2 2v8c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2z"></path>
-              </svg>Mensajes
-              </p>
-            </Link>
-          </li>
-        </ul>
-      </div>
+      <SelectableMenu onItemSelected={handleMenuItemSelected} />
+      {currentSelection && <p>Currently selected: {currentSelection}</p>}
       <br />
-      <div>
-
-
-{/**
- * removing
- *  md:grid-cols-6
- * for a future desktop version
- */}
-        {isLoading ? <p>Cargando ando</p> : <div className="grid grid-cols-2 gap-1">
-
-          {data.map((item, index) => (
-            <Link key={index} className='w-50 h-50' to={"/offer/"+item.id}>
-
-              <div
-                className="card card-compact w-50 h-48 card-bordered bg-base-100  shadow-sm border-gray-200"
-              >
-                <figure>
-
-                <Imagen
-                    className='object-cover'
-                    //width={300}
-                    //height={300}
-                    lowResSrc={"https://placehold.co/150x150/png/000000/FFFFFF?text=Loading..."}
-                    highResSrc={item.offer_images[0].offer_image_url}
-                    />
-
-                  {/*item.offer_images[0] ?
-
-                    <img
-                      src={item.offer_images[0].offer_image_url}
-                      alt="Shoes"
-                      className='object-cover'
-                    />
-                    :
-                    <div className="skeleton h-32 w-full"></div>
-          */}
-
-                </figure>
-                <div className="card-body p-0.5	">
-                  <div className="join w-full flex justify-between">
-                    {/**
-             * https://daisyui.com/components/join/
-             */}
-                    <p className='truncate'>{item.offer_title}</p>
-                    <p> </p>
-                    <p className='text-primary'>{formatToARS(item.offer_price)}</p>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          ))}</div>}
-      </div>
+      { currentSelection === "paraVos" && <JobOfferList/>}
+      { currentSelection === "mensajes" && <ChatMain/>}
+      { currentSelection === "favoritos" && <h1>Favoritos</h1>}
+      
     </div>
   );
 }

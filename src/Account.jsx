@@ -178,22 +178,6 @@ className="rounded-xl"
     setLocation(location)
     setShortLocation(shortLocation)
   }} />
-  {/**
-* 
-  <div className="join w-full">
-    <div className="w-4/5 ">
-      <label className="join-item flex items-center gap-2 ">
-        <input type="text" className="grow bg-gray-200 border border-gray-300 rounded px-2.5 py-2.5 cursor-not-allowed" value={session.user.email} disabled />
-      </label>
-    </div>
-    <div className="indicator">
-      <span className="indicator-item badge badge-secondary">new</span>
-      <button className="btn join-item">Search</button>
-    </div>
-  </div>
-*/}
-
-
 
   <br />
 

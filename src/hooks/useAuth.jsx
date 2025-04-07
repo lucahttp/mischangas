@@ -13,7 +13,8 @@ export function useAuth() {
       const { data: { user }, error  } = await supabase.auth.getUser();
 
       if (error) {
-        console.error('Error fetching user:', error);
+        console.log('Error fetching user:', error);
+        //console.error('Error fetching user:', error);
         setIsLoading(false);
         return;
       }
@@ -66,7 +67,9 @@ export function useAuth() {
     const { data: { user }, error } = await supabase.auth.signInAnonymously();
 
     if (error) {
-      console.error('Error creating anonymous user:', error);
+      console.log('Error creating anonymous user:', error);
+
+      //console.error('Error creating anonymous user:', error);
       return;
     }
     setUser(user);
